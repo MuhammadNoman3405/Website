@@ -55,10 +55,20 @@ export default async function Home({ searchParams }: { searchParams: { type?: st
     ]
   }
 
-  const mediaItems = await prisma.media.findMany({
-    where,
-    orderBy: { createdAt: 'desc' }
-  })
+  let mediaItems = []
+  let errorMsg = null
+
+  try {
+    mediaItems = await prisma.media.findMany({
+      where,
+      orderBy: { createdAt: 'desc' }
+    })
+  } catch (e: any) {
+    console.error("DB Error:", e)
+    errorMsg = e?.message || "Unknown database error"
+    // Fallback to empty list so page doesn't crash
+    mediaItems = []
+  }
 
   return (
     <div className="space-y-8">
