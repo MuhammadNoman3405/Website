@@ -1,6 +1,5 @@
 import MediaCard from "@/components/MediaCard"
 import { prisma } from "@/lib/prisma"
-import { MediaType } from "@prisma/client"
 
 // Mock data in case DB is empty or failing
 const MOCK_MEDIA = [
@@ -8,7 +7,7 @@ const MOCK_MEDIA = [
     id: "1",
     title: "Midnight City",
     artist: "M83",
-    type: "AUDIO" as MediaType,
+    type: "AUDIO" as "AUDIO" | "VIDEO",
     url: "#",
     thumbnail: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80",
     album: "Hurry Up, We're Dreaming"
@@ -17,7 +16,7 @@ const MOCK_MEDIA = [
     id: "2",
     title: "Big Buck Bunny",
     artist: "Blender Foundation",
-    type: "VIDEO" as MediaType,
+    type: "VIDEO" as "AUDIO" | "VIDEO",
     url: "#",
     thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/800px-Big_buck_bunny_poster_big.jpg",
     album: null
@@ -26,7 +25,7 @@ const MOCK_MEDIA = [
     id: "3",
     title: "Synthwave Mix 2024",
     artist: "Various Artists",
-    type: "AUDIO" as MediaType,
+    type: "AUDIO" as "AUDIO" | "VIDEO",
     url: "#",
     thumbnail: "https://images.unsplash.com/photo-1514525253440-b393452e8d26?w=800&q=80",
     album: "Neon Nights"
@@ -35,7 +34,7 @@ const MOCK_MEDIA = [
     id: "4",
     title: "Nature 4K",
     artist: "Earth",
-    type: "VIDEO" as MediaType,
+    type: "VIDEO" as "AUDIO" | "VIDEO",
     url: "#",
     thumbnail: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80",
     album: null
