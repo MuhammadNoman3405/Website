@@ -54,7 +54,7 @@ export default async function Home({ searchParams }: { searchParams: { type?: st
     ]
   }
 
-  let mediaItems = []
+  let mediaItems: any[] = []
   let errorMsg = null
 
   try {
