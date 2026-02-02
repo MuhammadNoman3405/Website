@@ -42,6 +42,8 @@ const MOCK_MEDIA = [
   }
 ]
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home({ searchParams }: { searchParams: { type?: string, search?: string } }) {
 
   const where: any = {}
