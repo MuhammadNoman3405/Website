@@ -29,6 +29,8 @@ model User {
   playlists    Playlist[]
   interactions Interaction[]
   uploads      Media[]       @relation("UserUploads")
+
+  @@map("stream_users")
 }
 
 model Media {
@@ -49,6 +51,8 @@ model Media {
 
   interactions Interaction[]
   playlists    PlaylistMedia[]
+
+  @@map("stream_media")
 }
 
 model Playlist {
@@ -59,6 +63,8 @@ model Playlist {
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
   items     PlaylistMedia[]
+
+  @@map("stream_playlists")
 }
 
 model PlaylistMedia {
@@ -70,6 +76,7 @@ model PlaylistMedia {
   addedAt    DateTime @default(now())
 
   @@unique([playlistId, mediaId])
+  @@map("stream_playlist_media")
 }
 
 model Interaction {
@@ -85,4 +92,5 @@ model Interaction {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, mediaId])
+  @@map("stream_interactions")
 }
