@@ -43,19 +43,20 @@ const MOCK_MEDIA = [
 ]
 
 export default async function Home({ searchParams }: { searchParams: { type?: string, search?: string } }) {
-  // Use mock data because DB push is failing in this environment, 
-  // ensuring the user sees UI structure immediately.
-  const mediaItems = MOCK_MEDIA.filter(item => {
-    if (searchParams?.type && item.type !== searchParams.type) return false
-    if (searchParams?.search) {
-      const q = searchParams.search.toLowerCase()
-      return item.title.toLowerCase().includes(q) || item.artist?.toLowerCase().includes(q)
-    }
-    return true
-  })
 
-  // In a real scenario with working DB:
-  // const mediaItems = await prisma.media.findMany({...})
+  const where: any = {}
+  if (searchParams?.type) where.type = searchParams.type
+  if (searchParams?.search) {
+    where.OR = [
+      { title: { contains: searchParams.search, mode: 'insensitive' } },
+      { artist: { contains: searchParams.search, mode: 'insensitive' } }
+    ]
+  }
+
+  const mediaItems = await prisma.media.findMany({
+    where,
+    orderBy: { createdAt: 'desc' }
+  })
 
   return (
     <div className="space-y-8">
@@ -69,7 +70,7 @@ export default async function Home({ searchParams }: { searchParams: { type?: st
 
       {mediaItems.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {mediaItems.map((media) => (
+          {mediaItems.map((media: any) => (
             //@ts-ignore - Simple mock type match
             <MediaCard key={media.id} media={media} />
           ))}
