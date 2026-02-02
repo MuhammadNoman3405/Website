@@ -72,6 +72,19 @@ export default async function Home({ searchParams }: { searchParams: { type?: st
 
   return (
     <div className="space-y-8">
+      {errorMsg && (
+        <div className="p-8 text-center text-red-500 bg-red-50 rounded-lg border border-red-200">
+          <h2 className="text-xl font-bold mb-2">Internal Server Error</h2>
+          <p>Could not connect to the database.</p>
+          <p className="text-sm font-mono mt-4 bg-white p-2 rounded text-left overflow-auto">
+            {errorMsg.includes("DATABASE_URL") ? "Missing Environment Variable: DATABASE_URL" : errorMsg}
+          </p>
+          <p className="mt-4 text-sm text-gray-600">
+            Please check your Vercel Project Settings &gt; Environment Variables.
+          </p>
+        </div>
+      )}
+
       <header className="flex items-center justify-between">
         <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
           {searchParams?.type
