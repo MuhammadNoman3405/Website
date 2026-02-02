@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET() {
     try {
-        const email = 'mnomanjani3405@gmail.com'
+        const email = '23-cs-68@students.uettaxila.edu.pk'
 
         const user = await prisma.user.update({
             where: { email },
